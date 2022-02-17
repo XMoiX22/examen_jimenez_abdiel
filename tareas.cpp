@@ -7,6 +7,7 @@ Tareas::Tareas(QWidget *parent) :
 {
     ui->setupUi(this);
     this->finalizada = false;
+    setWindowTitle("NUEVA TAREA");
 }
 
 Tareas::~Tareas()
@@ -50,4 +51,14 @@ char Tareas::getPrioridad(){
 }
 QString Tareas::getTipo(){
     return this->tipo;
+}
+
+void Tareas::on_buttonBox_accepted()
+{
+    reject();
+}
+
+void Tareas::on_buttonBox_rejected()
+{
+
 }

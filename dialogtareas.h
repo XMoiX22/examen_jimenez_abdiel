@@ -1,20 +1,20 @@
-#ifndef TAREAS_H
-#define TAREAS_H
+#ifndef DIALOGTAREAS_H
+#define DIALOGTAREAS_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QDate>
 
 namespace Ui {
-class Tareas;
+class DialogTareas;
 }
 
-class Tareas : public QWidget
+class DialogTareas : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit Tareas(QWidget *parent = nullptr);
-    ~Tareas();
+    explicit DialogTareas(QWidget *parent = nullptr);
+    ~DialogTareas();
     //lista de mtodos get y set para acceder a las propiedades de las tareas
     void setNumero(int numero);
     void setNombre(QString nombre);
@@ -29,14 +29,13 @@ public:
     char getPrioridad();
     QString getTipo();
 
-
 private slots:
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
 
 private:
-    Ui::Tareas *ui;
+    Ui::DialogTareas *ui;
     //propiedades de las tareas(atributos de la clase)
     int numero;
     QString nombre;
@@ -46,4 +45,4 @@ private:
     bool finalizada;
 };
 
-#endif // TAREAS_H
+#endif // DIALOGTAREAS_H
