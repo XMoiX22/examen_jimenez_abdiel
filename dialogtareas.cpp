@@ -7,59 +7,45 @@ DialogTareas::DialogTareas(QWidget *parent) :
     ui(new Ui::DialogTareas)
 {
     ui->setupUi(this);
-
-    this->finalizada = false;
     setWindowTitle("NUEVA TAREA");
+
+    //ahora agregamos las prioridades al combo box
+    ui->prioridad->addItem("Alta");
+    ui->prioridad->addItem("Media");
+    ui->prioridad->addItem("Baja");
 }
 
 DialogTareas::~DialogTareas()
 {
     delete ui;
 }
-void DialogTareas::setNumero(int numero){
-    this->numero = numero;
-}
-void DialogTareas::setNombre(QString nombre){
-    this->nombre = nombre;
-}
-void DialogTareas::setFecha(QDate fecha)
-{
-    this->fecha = fecha;
-}
-void DialogTareas::setPrioridad(char prioridad){
-    this->prioridad = prioridad;
-}
-void DialogTareas::setTipo(QString tipo){
-    this->tipo = tipo;
-}
-void DialogTareas::finalizarTarea(){
-    this->finalizada = true;
-}
-bool DialogTareas::isTareaFinalizada(){
-    return this->finalizada;
-}
-int DialogTareas::getNumero(){
-    return this->numero;
-}
-QString DialogTareas::getNombre(){
-    return this->nombre;
-}
-QDate DialogTareas::getFecha(){
-    return this->fecha;
-}
-char DialogTareas::getPrioridad(){
-    return this->prioridad;
-}
-QString DialogTareas::getTipo(){
-    return this->tipo;
-}
+//metodos que extraen la informacion suministrada en el dialogo
+int DialogTareas::getNumero() const{
 
+    return ui->numero->text().toInt();
+}
+QString DialogTareas::getNombre() const{
+    return ui->nombre->text();
+}
+QDate DialogTareas::getFecha() const{
+    return ui->fecha->date();
+}
+char DialogTareas::getPrioridad() const{
+    QString priorid = ui->prioridad->currentText(); //extraemos el texto de el lineEdit
+    QByteArray array_char = priorid.toLocal8Bit(); //cnvertimos el texto en un array de byts
+    const char *chars = array_char.data(); //convertimos los byts en caracteres
+    return chars[0]; //retornamos el primer caracter
+}
+QString DialogTareas::getTipo() const{
+    return ui->tipo->text();
+}
+//metodo para informar que salimos meidante accept para guardar la tarea
 void DialogTareas::on_buttonBox_accepted()
 {
-    reject();
+    accept();
 }
-
+//informamos que slaimos mediante reject, es decir cancelar el ingreso de una nueva tarea
 void DialogTareas::on_buttonBox_rejected()
 {
-    accept();
+    reject();
 }

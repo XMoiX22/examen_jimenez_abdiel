@@ -11,17 +11,23 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    dialogtareas.cpp
+    dialogtareas.cpp \
+    tarea.cpp
 
 HEADERS += \
         mainwindow.h \
-    dialogtareas.h
+    dialogtareas.h \
+    tarea.h
 
 FORMS += \
         mainwindow.ui \
     dialogtareas.ui
 
+TRANSLATIONS
+
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+

@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "tareas.h"
+#include "tarea.h"
+#include <QTableWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -19,9 +20,15 @@ public:
 private slots:
     void on_agregar_clicked();
 
+    void on_finalizar_clicked();
+
+    void on_tableWidget_itemClicked(QTableWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
-    QList<Tareas> listaTareas;
+    QList<Tarea> listaTareas; //para almacenar la lista de tareas
+
+    int fila_actual; //para guaardar la fila que se ha presionado
 };
 
 #endif // MAINWINDOW_H

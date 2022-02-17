@@ -15,19 +15,12 @@ class DialogTareas : public QDialog
 public:
     explicit DialogTareas(QWidget *parent = nullptr);
     ~DialogTareas();
-    //lista de mtodos get y set para acceder a las propiedades de las tareas
-    void setNumero(int numero);
-    void setNombre(QString nombre);
-    void setFecha(QDate fecha);
-    void setPrioridad(char prioridad);
-    void setTipo(QString tipo);
-    void finalizarTarea();
-    bool isTareaFinalizada();
-    int getNumero();
-    QString getNombre();
-    QDate getFecha();
-    char getPrioridad();
-    QString getTipo();
+    //metodos para extraer los campos de el dialogo
+    int getNumero() const;
+    QString getNombre() const;
+    QDate getFecha() const;
+    char getPrioridad() const;
+    QString getTipo() const;
 
 private slots:
     void on_buttonBox_accepted();
@@ -36,13 +29,7 @@ private slots:
 
 private:
     Ui::DialogTareas *ui;
-    //propiedades de las tareas(atributos de la clase)
-    int numero;
-    QString nombre;
-    QDate fecha;
-    char prioridad;
-    QString tipo;
-    bool finalizada;
+
 };
 
 #endif // DIALOGTAREAS_H

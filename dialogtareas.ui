@@ -31,7 +31,22 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QDateEdit" name="dateEdit"/>
+     <widget class="QDateEdit" name="fecha">
+      <property name="maximumDate">
+       <date>
+        <year>2022</year>
+        <month>12</month>
+        <day>31</day>
+       </date>
+      </property>
+      <property name="minimumDate">
+       <date>
+        <year>2022</year>
+        <month>2</month>
+        <day>17</day>
+       </date>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -53,7 +68,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit"/>
+     <widget class="QLineEdit" name="numero"/>
     </item>
    </layout>
   </widget>
@@ -75,7 +90,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QComboBox" name="comboBox"/>
+     <widget class="QComboBox" name="prioridad"/>
     </item>
    </layout>
   </widget>
@@ -97,7 +112,11 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_2"/>
+     <widget class="QLineEdit" name="nombre">
+      <property name="maxLength">
+       <number>80</number>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -119,7 +138,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_3"/>
+     <widget class="QLineEdit" name="tipo"/>
     </item>
    </layout>
   </widget>
