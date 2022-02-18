@@ -33,8 +33,9 @@ RESOURCES += \
     recursos/lista-de-quehaceres.png \
     recursos/salida.png
 
-TRANSLATIONS
-
+TRANSLATIONS +=\
+    Tareas_fr.ts \
+    Tareas_en.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -42,6 +43,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    Tareas_fr.qm \
+    Tareas_fr.ts \
     recursos.qrc \
     recursos/agregar-archivo.png \
     recursos/agregar.png \

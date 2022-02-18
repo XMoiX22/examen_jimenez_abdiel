@@ -12,12 +12,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("LISTADO DE TAREAS PENDIENTES"); //indicamos el nombre de la ventana
+    setWindowTitle(tr("LISTADO DE TAREAS PENDIENTES")); //indicamos el nombre de la ventana
 
     ui->tableWidget->setColumnCount(4); //le damos el numero de columna a la tabla
     //ahora creamos una lista con los nombres de las columnas
     QStringList labels;
-    labels << "Numero" << "Nombre" << "Tipo" << "Fecha";
+    labels << tr("Numero") << tr("Nombre") << tr("Tipo") << tr("Fecha");
     ui->tableWidget->setHorizontalHeaderLabels(labels);
 
     //inicializamos la fila seleccionada en -1
@@ -39,7 +39,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_finalizar_clicked()
 {
     if(this->fila_actual == -1){
-        QMessageBox::information(this,"Eroor","Seleccione una fila a eliminar"); //damos una alerta de que debe seleccionar una fila
+        QMessageBox::information(this,tr("Error.."),tr("Seleccione una Fila a Eliminar")); //damos una alerta de que debe seleccionar una fila
     }else{
         ui->tableWidget->removeRow(this->fila_actual);
 
@@ -152,7 +152,7 @@ void MainWindow::on_actionAgregar_Tarea_triggered()
             //por ultimo almacenamos la tarea en la lista de tareas locales
             this->listaTareas.append(*new_tarea);
         }else{
-            QMessageBox::information(this,"Eroor","Complete todos los campos"); //indicamos que debe completar todos los campos
+            QMessageBox::information(this,tr("Error.."),tr("Complete Todos Los Campos")); //indicamos que debe completar todos los campos
         }
 
     }
@@ -191,10 +191,11 @@ void MainWindow::on_actionNueva_Lista_triggered()
         this->listaTareas.clear();
 
     }else{
-        QMessageBox::information(this,"Eroor","La lista de tareas esta vacia");
+        QMessageBox::information(this,tr("Error"),tr("La Lista de Tareas Esta Vacia"));
 
     }
 }
+//creacion de nueva ventana con informacion..
 void MainWindow::on_actionAcerca_de_Organizador_triggered()
 {
     AcercaDe *acerca=new AcercaDe(this);

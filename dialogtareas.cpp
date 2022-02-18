@@ -7,12 +7,12 @@ DialogTareas::DialogTareas(QWidget *parent) :
     ui(new Ui::DialogTareas)
 {
     ui->setupUi(this);
-    setWindowTitle("NUEVA TAREA");
+    setWindowTitle(tr("NUEVA TAREA"));
 
     //ahora agregamos las prioridades al combo box
-    ui->prioridad->addItem("Alta");
-    ui->prioridad->addItem("Media");
-    ui->prioridad->addItem("Baja");
+    ui->prioridad->addItem(tr("Alta"));
+    ui->prioridad->addItem(tr("Media"));
+    ui->prioridad->addItem(tr("Baja"));
 }
 
 DialogTareas::~DialogTareas()

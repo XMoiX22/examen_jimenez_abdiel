@@ -5,5 +5,9 @@
         <file>recursos/agregar.png</file>
         <file>recursos/agregar-archivo.png</file>
         <file>recursos/salida.png</file>
+        <file>Tareas_fr.qm</file>
+        <file>Tareas_fr.ts</file>
+        <file>Tareas_en.qm</file>
+        <file>Tareas_en.ts</file>
     </qresource>
 </RCC>

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string/>
+   <string>LISTADO DE TAREAS PENDIENTES</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../build-Tareas-Desktop-Debug/debug/qmake_qmake_immediate.qrc">
