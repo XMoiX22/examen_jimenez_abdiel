@@ -9,19 +9,29 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    acercade.cpp \
         main.cpp \
         mainwindow.cpp \
     dialogtareas.cpp \
     tarea.cpp
 
 HEADERS += \
+    acercade.h \
         mainwindow.h \
     dialogtareas.h \
     tarea.h
 
 FORMS += \
+    acercade.ui \
         mainwindow.ui \
     dialogtareas.ui
+
+RESOURCES += \
+    recursos.qrc \
+    recursos/agregar-archivo.png \
+    recursos/agregar.png \
+    recursos/lista-de-quehaceres.png \
+    recursos/salida.png
 
 TRANSLATIONS
 
@@ -30,4 +40,11 @@ TRANSLATIONS
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    recursos.qrc \
+    recursos/agregar-archivo.png \
+    recursos/agregar.png \
+    recursos/lista-de-quehaceres.png \
+    recursos/salida.png
 

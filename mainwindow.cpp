@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dialogtareas.h"
-#include "Tarea.h"
+#include "tarea.h"
 #include <QFile>
+#include <QDebug>
 #include <QTextStream>
 #include <QMessageBox>
 
@@ -34,9 +35,62 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-//metodo para agregar una tarea
-void MainWindow::on_agregar_clicked()
+
+void MainWindow::on_finalizar_clicked()
 {
+    if(this->fila_actual == -1){
+        QMessageBox::information(this,"Eroor","Seleccione una fila a eliminar"); //damos una alerta de que debe seleccionar una fila
+    }else{
+        ui->tableWidget->removeRow(this->fila_actual);
+
+        //ahora actualizamos la tarea a finalizada
+
+        //buscamos el valor de la fila eliminada
+        //recorremos la lista para ir ocntando las tareas ya finalizadas
+        int cont = -1; //contador para identificar la tarea que ha sido finalizada
+        for(int i = 0; i < this->listaTareas.size(); i++){
+            if( !this->listaTareas[i].isTareaFinalizada()){
+                cont++;
+            }
+
+            if( cont == this->fila_actual){
+                cont = i;
+                break; //cerramos el for porque se ha encontrado la tarea eliminada
+            }
+        }
+        this->listaTareas[cont].finalizarTarea();
+        // ahora guardamos en el archivo las tareas con las modificaciones
+
+        QFile imc("Tareas.txt"); //variable de tipo File para generar un archivo
+        imc.open(QIODevice::WriteOnly | QIODevice::Text); //abrimos el archivo para escritura reemplazando el existente
+
+        QTextStream stream(&imc);
+        stream.seek(imc.size());
+
+        //recorremos la lista de tareas
+        for(int i = 0; i < this->listaTareas.size(); i++){
+            stream << this->listaTareas[i].getNumero() << " - " << this->listaTareas[i].getNombre() << " - " << this->listaTareas[i].getTipo() << " - " << this->listaTareas[i].getPrioridad() << " - "  << this->listaTareas[i].getFecha().toString() << " - " << this->listaTareas[i].isTareaFinalizada() << "\n";
+        }
+        imc.close(); //cerramos el archivo
+
+        this->fila_actual = -1; //ponemos en -1 para quitar la seleccion, lo que para eliminar otro elemento debe presionarlo
+
+    }
+}
+//metodo para obtener la fila que el usuario selecciona para posterios eliminarla
+void MainWindow::on_tableWidget_itemClicked(QTableWidgetItem *item)
+{
+    this->fila_actual = item->row(); //guardamos la fila que se ha seleccionado
+}
+
+void MainWindow::on_actionSalir_triggered()
+{
+    close();
+}
+//metodo para agregar una tarea
+void MainWindow::on_actionAgregar_Tarea_triggered()
+{
+
     //instanciamos una nueva tarea
     DialogTareas *tarea = new DialogTareas();
     int opcion = tarea->exec(); //ejecutamos la ventana
@@ -103,33 +157,14 @@ void MainWindow::on_agregar_clicked()
 
     }
 }
-
-void MainWindow::on_finalizar_clicked()
+//metodo para crear una nueva lista de tareas
+void MainWindow::on_actionNueva_Lista_triggered()
 {
-    if(this->fila_actual == -1){
-        QMessageBox::information(this,"Eroor","Seleccione una fila a eliminar"); //damos una alerta de que debe seleccionar una fila
-    }else{
-        ui->tableWidget->removeRow(this->fila_actual);
-
-        //ahora actualizamos la tarea a finalizada
-
-        //buscamos el valor de la fila eliminada
-        //recorremos la lista para ir ocntando las tareas ya finalizadas
-        int cont = -1; //contador para identificar la tarea que ha sido finalizada
-        for(int i = 0; i < this->listaTareas.size(); i++){
-            if( !this->listaTareas[i].isTareaFinalizada()){
-                cont++;
-            }
-
-            if( cont == this->fila_actual){
-                cont = i;
-                break; //cerramos el for porque se ha encontrado la tarea eliminada
-            }
-        }
-        this->listaTareas[cont].finalizarTarea();
-        // ahora guardamos en el archivo las tareas con las modificaciones
-
-        QFile imc("Tareas.txt"); //variable de tipo File para generar un archivo
+    //primero guardamos las tareas en un nuevo archivo
+    //el nombre lo obtenemos con la prioridad y numero de la primera tarea
+    if( this->listaTareas.size() > 0){
+        QString nombre_archivo = QString(listaTareas[0].getPrioridad())+"_"+QString::number(this->listaTareas[0].getNumero());
+        QFile imc(nombre_archivo+"_Tareas.txt"); //variable de tipo File para generar un archivo
         imc.open(QIODevice::WriteOnly | QIODevice::Text); //abrimos el archivo para escritura reemplazando el existente
 
         QTextStream stream(&imc);
@@ -141,12 +176,27 @@ void MainWindow::on_finalizar_clicked()
         }
         imc.close(); //cerramos el archivo
 
-        this->fila_actual = -1; //ponemos en -1 para quitar la seleccion, lo que para eliminar otro elemento debe presionarlo
+        //ahora vaciamos el archivo de tareas principal
+        QFile imc1("Tareas.txt"); //variable de tipo File para generar un archivo
+        imc1.open(QIODevice::WriteOnly | QIODevice::Text); //abrimos el archivo para escritura reemplazando el existente
+
+        imc1.close();
+
+        //ahora borramos todas las filas de la tabla
+
+        for(int i = 0; i < ui->tableWidget->rowCount(); i++){
+            ui->tableWidget->removeRow(i);
+        }
+        //por ultimo vaciamos la lista de tareas locales
+        this->listaTareas.clear();
+
+    }else{
+        QMessageBox::information(this,"Eroor","La lista de tareas esta vacia");
 
     }
 }
-//metodo para obtener la fila que el usuario selecciona para posterios eliminarla
-void MainWindow::on_tableWidget_itemClicked(QTableWidgetItem *item)
+void MainWindow::on_actionAcerca_de_Organizador_triggered()
 {
-    this->fila_actual = item->row(); //guardamos la fila que se ha seleccionado
+    AcercaDe *acerca=new AcercaDe(this);
+    acerca->exec();
 }

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "tarea.h"
+#include "acercade.h"
 #include <QTableWidgetItem>
 
 namespace Ui {
@@ -18,11 +19,18 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_agregar_clicked();
 
     void on_finalizar_clicked();
 
     void on_tableWidget_itemClicked(QTableWidgetItem *item);
+
+    void on_actionSalir_triggered();
+
+    void on_actionAgregar_Tarea_triggered();
+
+    void on_actionNueva_Lista_triggered();
+
+    void on_actionAcerca_de_Organizador_triggered();
 
 private:
     Ui::MainWindow *ui;
